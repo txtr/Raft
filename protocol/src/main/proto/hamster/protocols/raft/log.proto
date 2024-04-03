@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package hamster.protocols.raft;
+
+option java_package = "io.hamster.protocols.raft.storage.log";
+option java_outer_classname = "RaftProtocolProto";
+option java_multiple_files = true;
+
+// Raft log entry
+message RaftLogEntry {
+  int64 term = 1;
+  int64 timestamp = 2;
+  oneof entry {
+    InitializeEntry initialize = 3;
+    CommandEntry command = 5;
+    QueryEntry query = 6;
+  }
+}
+
+message InitializeEntry {
+}
+
+message CommandEntry {
+  bytes value = 1;
+  bool stream = 2;
+}
+
+message QueryEntry {
+  bytes value = 1;
+}
